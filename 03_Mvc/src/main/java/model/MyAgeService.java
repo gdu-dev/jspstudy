@@ -5,8 +5,9 @@ import java.util.Calendar;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AgeService {
+public class MyAgeService implements MyService {
 
+	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String strBirthyear = request.getParameter("birthyear");
@@ -17,5 +18,5 @@ public class AgeService {
 		return "view/output.jsp";
 		
 	}
-	
+
 }
