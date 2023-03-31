@@ -12,5 +12,18 @@
 	
 	<h3><a href="${contextPath}/TodayServlet">오늘은 며칠입니까?</a></h3>
 	
+	<form action="${contextPath}/AgeServlet">
+		<select name="birthyear">
+			<c:forEach var="y" begin="1923" end="2023" step="1">
+				<option value="${y}">${y}년</option>
+			</c:forEach>
+		</select>
+		<button>몇 살입니까?</button>
+	</form>
+	
 </body>
 </html>
+
+
+
+
