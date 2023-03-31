@@ -33,14 +33,5 @@
 		})
 	</script>
 	
-	MyBmiService   ->    view/output.jsp
-	
-	
-	
-	
-	
-	
-	
-	
 </body>
 </html>

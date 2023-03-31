@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.MyAgeService;
+import model.MyBmiService;
 import model.MyService;
 import model.MyTodayService;
 
@@ -37,6 +38,9 @@ public class MyController extends HttpServlet {
 			break;
 		case "/age.do":
 			myService = new MyAgeService();
+			break;
+		case "/bmi.do":
+			myService = new MyBmiService();
 			break;
 		}
 		
