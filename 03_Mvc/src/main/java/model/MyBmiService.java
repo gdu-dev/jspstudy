@@ -5,10 +5,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.ActionForward;
+
 public class MyBmiService implements MyService {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		Optional<String> opt1 = Optional.ofNullable(request.getParameter("height"));
 		double height = Double.parseDouble(opt1.orElse("0"));
@@ -29,7 +31,11 @@ public class MyBmiService implements MyService {
 		request.setAttribute("bmi", bmi);
 		request.setAttribute("health", health);
 		
-		return "view/output.jsp";
+		// 어디로 어떻게 갈 것인가?
+		ActionForward actionForward = new ActionForward();
+		actionForward.setPath("view/output.jsp");
+		actionForward.setRedirect(false);  // forward
+		return actionForward;
 		
 	}
 
