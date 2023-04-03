@@ -43,9 +43,20 @@ public class BoardDAO {
 		return dao;
 	}
 	
+	// 자원(Connection, PreparedStatement, ResultSet) 반납하기
+	private void close() {
+		try {
+			if(rs != null) rs.close();
+			if(ps != null) ps.close();
+			if(con != null) con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// 게시글 목록 반환하기
 	public List<BoardDTO> selectBoardList() {
-	
+		
 		return null;
 	}
 	
