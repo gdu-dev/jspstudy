@@ -33,10 +33,12 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${boardList}" var="board">
-						<td>${board.board_no}</td>
-						<td>${board.title}</td>
-						<td>${board.created_date}</td>
-						<td><a href="#"><i class="fa-solid fa-x"></i></a></td>
+						<tr>
+							<td>${board.board_no}</td>
+							<td>${board.title}</td>
+							<td>${board.created_date}</td>
+							<td><a href="#"><i class="fa-solid fa-x"></i></a></td>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
