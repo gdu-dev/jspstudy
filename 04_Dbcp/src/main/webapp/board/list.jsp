@@ -19,6 +19,13 @@
 		$('#btn_write').on('click', function(){
 			location.href = '${contextPath}/writeBoard.do';
 		})
+		// 삭제 링크 클릭
+		$('.link_remove').on('click', function(event){
+			if(confirm('삭제할까요?') == false){
+				event.preventDefault();  // <a> 태그의 기본 동작인 href 속성의 동작을 막는다.
+				return;
+			}
+		})
 	})
 </script>
 </head>
@@ -45,7 +52,7 @@
 							<td>${board.board_no}</td>
 							<td>${board.title}</td>
 							<td>${board.created_date}</td>
-							<td><a href="#"><i class="fa-solid fa-x"></i></a></td>
+							<td><a class="link_remove" href="${contextPath}/removeBoard.do?board_no=${board.board_no}"><i class="fa-solid fa-x"></i></a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
