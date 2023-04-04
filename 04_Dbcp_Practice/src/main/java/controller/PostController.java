@@ -41,7 +41,7 @@ public class PostController extends HttpServlet {
 		case "/save.post":
 			service = new PostSaveService();
 			break;	
-		case "c":
+		case "/write.post":
 			path = "post/write.jsp";
 			break;
 		}
