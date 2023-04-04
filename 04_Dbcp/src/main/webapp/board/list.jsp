@@ -22,7 +22,7 @@
 		// 삭제 링크 클릭
 		$('.link_remove').on('click', function(event){
 			if(confirm('삭제할까요?') == false){
-				event.preventDefault();  // <a> 태그의 기본 동작인 href 속성의 동작을 막는다.
+				event.preventDefault();  // <button> 태그의 기본 동작인 submit 속성의 동작을 막는다.
 				return;
 			}
 		})
@@ -52,7 +52,12 @@
 							<td>${board.board_no}</td>
 							<td>${board.title}</td>
 							<td>${board.created_date}</td>
-							<td><a class="link_remove" href="${contextPath}/removeBoard.do?board_no=${board.board_no}"><i class="fa-solid fa-x"></i></a></td>
+							<td>
+								<form method="post" action="${contextPath}/removeBoard.do">
+									<input type="hidden" name="board_no" value="${board.board_no}">
+									<button class="link_remove"><i class="fa-solid fa-x"></i></button>
+								</form>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
