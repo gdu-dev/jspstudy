@@ -9,7 +9,7 @@
 <body>
 
 <%--
-	<a href="/04_Dbcp/getAllBoardList.do">게시판</a>
+	<a href="/04_Dbcp/getAllBoards.do">게시판</a>
 	
 	<a href="<%=request.getContextPath()%>/getAllBoardList.do">게시판</a>
 	
