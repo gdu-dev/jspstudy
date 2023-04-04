@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.IPostService;
+import service.PostListService;
+import service.PostSaveService;
 
-@WebServlet("*.post")  //  /list.post  /detail.post  /save.post  /change.post  /edit.post  /delete.post
+@WebServlet("*.post")  //  /list.post  /detail.post  /write.post  /save.post  /change.post  /edit.post  /delete.post
 
 public class PostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,13 +30,23 @@ public class PostController extends HttpServlet {
 		// 서비스 타입 선언
 		IPostService service = null;
 		
+		// forward 경로
+		String path = null;
+
 		// urlMapping에 따른 서비스 선택(생성)
 		switch(urlMapping) {
-		
+		case "/list.post":
+			service = new PostListService();
+			break;
+		case "/save.post":
+			service = new PostSaveService();
+			break;	
+		case "c":
+			path = "post/write.jsp";
+			break;
 		}
 		
 		// 선택된 서비스 실행
-		String path = null;
 		if(service != null) {
 			try {
 				// redirect가 필요한 서비스(삽입,수정,삭제)는 서비스 내에서 직접 redirect하고(location.href를 이용) path에 null을 반환한다.
