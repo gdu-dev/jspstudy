@@ -47,11 +47,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${boardList}" var="board">
+					<c:forEach items="${boardList}" var="board" varStatus="vs">
 						<tr>
-							<td>${board.board_no}</td>
-							<td>${board.title}</td>
-							<td>${board.created_date}</td>
+							<td><fmt:formatNumber value="${boardListCount - vs.index}" pattern="#,##0" /></td>
+							<td><a href="${contextPath}/getBoardByNo.do?board_no=${board.board_no}">${board.title}</a></td>
+							<td><fmt:formatDate value="${board.created_date}" pattern="yy.MM.dd" /></td>
 							<td>
 								<form method="post" action="${contextPath}/removeBoard.do">
 									<input type="hidden" name="board_no" value="${board.board_no}">

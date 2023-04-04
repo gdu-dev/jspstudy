@@ -1,7 +1,6 @@
 package service;
 
 import java.io.PrintWriter;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,8 +33,8 @@ public class BoardRemoveService implements IBoardService {
 		}
 		
 		// 1. 요청 파라미터
-		Optional<String> opt = Optional.ofNullable(request.getParameter("board_no"));
-		int board_no = Integer.parseInt(opt.orElse("0"));
+		String strBoard_no = request.getParameter("board_no");
+		int board_no = Integer.parseInt(strBoard_no.isEmpty() ? "0" : strBoard_no);
 		
 		// 2. BoardDAO의 deleteBoard 메소드 호출
 		int deleteResult = BoardDAO.getInstance().deleteBoard(board_no);
