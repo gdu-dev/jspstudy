@@ -33,11 +33,19 @@
 <body>
 
 	<div>
-		<h1>${board.board_no}게시글 보기</h1>
-		<h1>${board.title}</h1>
-		<h1>${board.content}</h1>
-		<h1>${board.modified_date}</h1>
-		<h1>${board.created_date}</h1>
+		<h1>게시글 상세보기</h1>
+		<form>
+			<div>
+				<label for="title">제목</label>
+				<input type="text" id="title" name="title" value="${board.title}">
+			</div>
+			<div>
+				<textarea name="content" rows="5" cols="30" placeholder="내용">${board.content}</textarea>
+			</div>
+			<div>
+				<input type="button" value="목록" id="btn_list">
+			</div>
+		</form>
 	</div>
 
 </body>
