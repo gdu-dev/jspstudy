@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import service.IPostService;
+import service.PostDetailService;
 import service.PostListService;
 import service.PostSaveService;
 
@@ -43,6 +44,9 @@ public class PostController extends HttpServlet {
 			break;	
 		case "/write.post":
 			path = "post/write.jsp";
+			break;
+		case "/detail.post":
+			service = new PostDetailService();
 			break;
 		}
 		
