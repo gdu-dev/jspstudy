@@ -6,6 +6,10 @@
 <!-- namespace는 mybatis.mapper.bbs.xml 파일을 의미한다 -->
 <mapper namespace="mybatis.mapper.bbs">
 
+
+
+	<!-- select의 resultType은 "List<BbsDTO>"와 "BbsDTO" 모두 "BbsDTO"라고 지정한다. -->
+
 	<!-- 목록 -->
 	<select id="selectAllBbsList" resultType="Bbs">
 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
@@ -20,8 +24,12 @@
 		 WHERE BBS_NO = #{bbsNo}
 	</select>
 	
+	
+	
+	<!-- DML(insert, update, delete)의 resultType은 모두 생략한다. -->
+	
 	<!-- 삽입 -->
-	<insert id="insertBbs">
+	<insert id="insertBbs" parameterType="Bbs">
 		INSERT INTO BBS
 			(BBS_NO, TITLE, CONTENT, CREATED_DATE)
 		VALUES
@@ -29,7 +37,7 @@
 	</insert>
 	
 	<!-- 수정 -->
-	<update id="updateBbs">
+	<update id="updateBbs" parameterType="Bbs">
 		UPDATE BBS
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
@@ -38,7 +46,7 @@
 	</update>
 	
 	<!-- 삭제 -->
-	<delete id="deleteBbs">
+	<delete id="deleteBbs" parameterType="int">
 		DELETE
 		  FROM BBS
 		 WHERE BBS_NO = #{bbsNo}
