@@ -7,14 +7,14 @@
 <mapper namespace="mybatis.mapper.bbs">
 
 	<!-- 목록 -->
-	<select id="selectAllBbsList">
+	<select id="selectAllBbsList" resultType="Bbs">
 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
 		  FROM BBS
 		 ORDER BY BBS_NO DESC
 	</select>
 	
 	<!-- 상세 -->
-	<select id="selectBbsByNo">
+	<select id="selectBbsByNo" parameterType="int" resultType="Bbs">
 		SELECT BBS_NO, TITLE, CONTENT, MODIFIED_DATE, CREATED_DATE
 		  FROM BBS
 		 WHERE BBS_NO = #{bbsNo}
