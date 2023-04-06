@@ -84,12 +84,11 @@ public class MemberDAO {
 	public int deleteMember(int memberNo) {
 		SqlSession ss = factory.openSession(false);
 		int deleteResult = ss.delete(NS + "deleteMember", memberNo);
-		if(deleteResult ==1) {
+		if(deleteResult == 1) {
 			ss.commit();
 		}
 		ss.close();
 		return deleteResult;
 	}
-	
 	
 }
