@@ -25,6 +25,9 @@
 			</div>
 		</c:forEach>
 	</div>
+	<div>
+		<a href="${contextPath}/write.do">작성하러 가기</a>
+	</div>
 
 </body>
 </html>
