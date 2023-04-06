@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,8 +11,14 @@ public class BbsDetailService implements IBbsService {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+		
+		Optional<String> opt = Optional.ofNullable(request.getParameter("bbsNo"));
+		int bbsNo = Integer.parseInt(opt.orElse("0"));
+		
+		
+		
 		return null;
+		
 	}
 
 }
