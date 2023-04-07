@@ -23,7 +23,38 @@
 			// 응답
 			dataType: 'json',
 			success: function(resData){  // 응답 데이터는 resData로 전달된다.
-				console.log(resData);
+				/*
+					resData <--- out.println(obj.toString())
+					resData = {
+						"memberCount": 2,
+						"memberList": [
+							{ },
+							{ }
+						]
+					}
+				*/
+				
+				$('#member_count').text(resData.memberCount);
+				
+				let memberList = $('#member_list');
+				memberList.empty();  // 기존의 회원 목록을 지운다.
+				
+				if(resData.memberCount === 0){
+					memberList.append('<tr><td colspan="6">회원이 없습니다.</td></tr>');
+				} else {
+					/* $.each(배열, (인덱스, 요소)=>{})       */
+					/* $.each(배열, function(인덱스, 요소){}) */
+					$.each(resData.memberList, function(i, element){  // element는 하나의 회원 객체를 의미한다. 
+						let str = '<tr>';
+						str += '<td>' + element.memberNo + '</td>';
+						str += '<td>' + element.id + '</td>';
+						str += '<td>' + element.name + '</td>';
+						str += '<td>' + (element.gender === 'M' ? '남자' : '여자') + '</td>';
+						str += '<td>' + element.address + '</td>';
+						str += '<td><input type="button" value="조회" class="btn_detail"></td>';
+						memberList.append(str);
+					})
+				}
 			}
 		})
 	}
