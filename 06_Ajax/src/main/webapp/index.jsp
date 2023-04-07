@@ -69,7 +69,7 @@
 		
 		/* 함수 정의 */
 		function fnInit(){
-			$('#id').val('');
+			$('#id').val('').prop('disabled', false);
 			$('#name').val('');
 			$(':radio[name=gender]').prop('checked', false);
 			$('#address').val('');
@@ -156,7 +156,7 @@
 				dataType: 'json',
 				success: function(resData){  // resData = {"member": {"memberNo":회원번호, "gender": "M", ...}}
 					alert('회원 정보가 조회되었습니다.');
-					$('#id').val(resData.member.id);
+					$('#id').val(resData.member.id).prop('disabled', true);
 					$('#name').val(resData.member.name);
 					$(':radio[name=gender][value=' + resData.member.gender + ']').prop('checked', true);
 					$('#address').val(resData.member.address);
