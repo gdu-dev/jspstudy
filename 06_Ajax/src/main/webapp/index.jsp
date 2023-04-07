@@ -13,6 +13,7 @@
 	
 	/* 함수 호출 */
 	fnGetAllMember();
+
 	
 	/* 함수 정의 */
 	function fnGetAllMember(){
@@ -59,6 +60,30 @@
 		})
 	}
 	
+	function fnAddMember(){
+		$.ajax({
+			// 요청
+			type: 'post',
+			url: '${contextPath}/add.do',
+			data: $('#frm_member').serialize(),  // 폼의 모든 입력 요소를 파라미터로 전송한다. (입력 요소에는 name 속성이 필요하다.)
+			// 응답
+			dataType: 'json',
+			success: function(resData){  // try문의 응답이 resData에 저장된다. resData = {"insertResult": 1}
+				if(resData.insertResult === 1) {
+					alert('신규 회원이 등록되었습니다.');
+					fnGetAllMember();  // 새로운 회원 목록으로 갱신하기
+				} else {
+					alert('신규 회원 등록이 실패했습니다.');
+				}
+			},
+			error: function(jqXHR) {  // jqXHR 객체에는 예외코드(응답코드: 404, 500 등)와 예외메시지 등이 저장된다.
+				                      // catch문의 응답 코드는 jqXHR 객체의 status 속성에 저장된다.
+				                      // catch문의 응답 메세지는 jqXHR 객체의 responseText 속성에 저장된다.
+				alert(jqXHR.responseText + '(' + jqXHR.status + ')');
+			}
+		})
+	}
+	
 </script>
 </head>
 <body>
@@ -87,7 +112,7 @@
 			</div>
 			<div>
 				<input type="button" value="초기화" onclick="">
-				<input type="button" value="신규등록" onclick="">
+				<input type="button" value="신규등록" onclick="fnAddMember()">
 				<input type="button" value="변경저장" onclick="">
 				<input type="button" value="삭제" onclick="">
 			</div>
