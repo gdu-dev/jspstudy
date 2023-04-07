@@ -12,10 +12,17 @@
 <script>
 	
 	/* 함수 호출 */
+	fnInit();
 	fnGetAllMember();
-
 	
 	/* 함수 정의 */
+	function fnInit(){
+		$('#id').val('');
+		$('#name').val('');
+		$(':radio[name=gender]').prop('checked', false);
+		$('#address').val('');
+	}
+	
 	function fnGetAllMember(){
 		$.ajax({
 			// 요청
@@ -52,7 +59,7 @@
 						str += '<td>' + element.name + '</td>';
 						str += '<td>' + (element.gender === 'M' ? '남자' : '여자') + '</td>';
 						str += '<td>' + element.address + '</td>';
-						str += '<td><input type="button" value="조회" class="btn_detail"></td>';
+						str += '<td><input type="button" value="조회" class="btn_detail" onclick="fnGetMember(' + element.memberNo + ')"></td>';
 						memberList.append(str);
 					})
 				}
@@ -71,6 +78,7 @@
 			success: function(resData){  // try문의 응답이 resData에 저장된다. resData = {"insertResult": 1}
 				if(resData.insertResult === 1) {
 					alert('신규 회원이 등록되었습니다.');
+					fnInit();          // 입력란 초기화
 					fnGetAllMember();  // 새로운 회원 목록으로 갱신하기
 				} else {
 					alert('신규 회원 등록이 실패했습니다.');
@@ -81,6 +89,19 @@
 				                      // catch문의 응답 메세지는 jqXHR 객체의 responseText 속성에 저장된다.
 				alert(jqXHR.responseText + '(' + jqXHR.status + ')');
 			}
+		})
+	}
+	
+	// onclick="fnGetMember(element.memberNo)"
+	// fnGetMember() 함수를 호출할 때 회원번호(element.memberNo)를 인수로 전달하면 매개변수 memberNo가 받는다.
+	function fnGetMember(memberNo){
+		$.ajax({
+			// 요청
+			type: 'get',
+			url: '${contextPath}/detail.do',
+			data: 'memberNo=' + 10000,
+			// 응답
+			
 		})
 	}
 	
@@ -111,7 +132,7 @@
 				<input type="text" id="address" name="address">
 			</div>
 			<div>
-				<input type="button" value="초기화" onclick="">
+				<input type="button" value="초기화" onclick="fnInit()">
 				<input type="button" value="신규등록" onclick="fnAddMember()">
 				<input type="button" value="변경저장" onclick="">
 				<input type="button" value="삭제" onclick="">
