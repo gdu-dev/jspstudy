@@ -17,7 +17,7 @@
 		<form id="frm_member">
 			<div>
 				<label for="id">아이디</label>
-				<input type="text" id="id" name="id">
+				<input type="text" id="id" name="id" onkeyup="fnCheckId()"> <span id="check_id">아이디 중복 체크</span>
 			</div>
 			<div>
 				<label for="name">이름</label>
@@ -34,10 +34,11 @@
 				<input type="text" id="address" name="address">
 			</div>
 			<div>
+				<input type="hidden" id="memberNo" name="memberNo">
 				<input type="button" value="초기화" onclick="fnInit()">
-				<input type="button" value="신규등록" onclick="fnAddMember()">
-				<input type="button" value="변경저장" onclick="">
-				<input type="button" value="삭제" onclick="">
+				<input type="button" value="신규등록" id="btn_add" onclick="fnAddMember()">
+				<input type="button" value="정보수정" id="btn_modify" onclick="fnModifyMember()">
+				<input type="button" value="회원삭제" id="btn_remove" onclick="fnRemoveMember()">
 			</div>
 		</form>
 	
@@ -69,10 +70,13 @@
 		
 		/* 함수 정의 */
 		function fnInit(){
-			$('#id').val('').prop('disabled', false);
+			$('#id').val('').prop('disabled', false);  // 조회 기능이 동작할 때 처리된 disabled 속성을 없앤다.
 			$('#name').val('');
 			$(':radio[name=gender]').prop('checked', false);
 			$('#address').val('');
+			$('#btn_add').prop('disabled', false);    // 조회 기능이 동작하지 않으면 신규등록 버튼을 사용할 수 있다.
+			$('#btn_modify').prop('disabled', true);  // 조회 기능이 동작하지 않으면 정보수정 버튼을 사용할 수 없다.
+			$('#btn_remove').prop('disabled', true);  // 조회 기능이 동작하지 않으면 회원삭제 버튼을 사용할 수 없다.
 		}
 		
 		function fnGetAllMember(){
@@ -111,9 +115,27 @@
 							str += '<td>' + element.name + '</td>';
 							str += '<td>' + (element.gender === 'M' ? '남자' : '여자') + '</td>';
 							str += '<td>' + element.address + '</td>';
-							str += '<td><input type="button" value="조회" class="btn_detail" onclick="fnGetMember(' + element.memberNo + ')"></td>';
+							str += '<td><input type="button" value="조회" onclick="fnGetMember(' + element.memberNo + ')"></td>';
 							memberList.append(str);
 						})
+					}
+				}
+			})
+		}
+		
+		function fnCheckId() {  // 입력된 아이디가 DB에 있는 아이디인지 점검(아이디 중복 체크)
+			$.ajax({
+				// 요청
+				type: 'get',
+				url: '${contextPath}/checkId.do',
+				data: 'id=' + $('#id').val(),
+				// 응답
+				dataType: 'json',
+				success: function(resData){  // resData = {"isAvailable": true}
+					if(resData.isAvailable){
+						$('#check_id').text('');
+					} else {
+						$('#check_id').text('이미 사용 중인 아이디입니다.').css('color', 'red');
 					}
 				}
 			})
@@ -156,10 +178,61 @@
 				dataType: 'json',
 				success: function(resData){  // resData = {"member": {"memberNo":회원번호, "gender": "M", ...}}
 					alert('회원 정보가 조회되었습니다.');
-					$('#id').val(resData.member.id).prop('disabled', true);
+					$('#id').val(resData.member.id).prop('disabled', true);  // disabled를 이용해서 아이디의 수정을 방지한다.
 					$('#name').val(resData.member.name);
 					$(':radio[name=gender][value=' + resData.member.gender + ']').prop('checked', true);
 					$('#address').val(resData.member.address);
+					$('#memberNo').val(resData.member.memberNo);  // <input type="hidden">에 저장하는 값
+					$('#btn_add').prop('disabled', true);         // 조회 기능이 동작하면 신규등록 버튼을 사용할 수 없다.
+					$('#btn_modify').prop('disabled', false);     // 조회 기능이 동작하면 정보수정 버튼을 사용할 수 있다.
+					$('#btn_remove').prop('disabled', false);     // 조회 기능이 동작하면 회원삭제 버튼을 사용할 수 있다.
+				}
+			})
+		}
+		
+		function fnModifyMember(){
+			$.ajax({
+				// 요청
+				type: 'post',
+				url: '${contextPath}/modify.do',
+				data: $('#frm_member').serialize(),
+				// 응답
+				dataType: 'json',
+				success: function(resData){  // resData = {"updateResult": 1}
+					if(resData.updateResult === 1) {
+						alert('회원 정보가 수정되었습니다.');
+						fnGetAllMember();   // 새로운 회원 목록으로 갱신
+					} else {
+						alert('회원 정보 수정이 실패했습니다.');
+					}
+				},
+				error: function(jqXHR) {  // jqXHR 객체에는 예외코드(응답코드: 404, 500 등)와 예외메시지 등이 저장된다.
+					                      // catch문의 응답 코드는 jqXHR 객체의 status 속성에 저장된다.
+					                      // catch문의 응답 메세지는 jqXHR 객체의 responseText 속성에 저장된다.
+					alert(jqXHR.responseText + '(' + jqXHR.status + ')');
+				}
+			})
+		}
+		
+		function fnRemoveMember(){
+			if(confirm('회원 정보를 삭제할까요?') == false) {
+				alert('취소되었습니다.');
+				return;
+			}
+			$.ajax({
+				// 요청
+				type: 'get',
+				url: '${contextPath}/remove.do',
+				data: 'memberNo=' + $('#memberNo').val(),
+				// 응답
+				dataType: 'json',
+				success: function(resData){  // resData = {"deleteResult": 1}
+					if(resData.deleteResult === 1) {
+						alert('회원 정보가 삭제되었습니다.');
+						fnGetAllMember();   // 새로운 회원 목록으로 갱신
+					} else {
+						alert('회원 정보 삭제가 실패했습니다.');
+					}
 				}
 			})
 		}

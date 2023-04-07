@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import service.IMemberService;
 import service.MemberAddService;
+import service.MemberCheckIdService;
 import service.MemberDetailService;
 import service.MemberListService;
 import service.MemberModifyService;
@@ -39,6 +40,9 @@ public class MemberRestController extends HttpServlet {
 			break;
 		case "/detail.do":
 			service = new MemberDetailService();
+			break;
+		case "/checkId.do":
+			service = new MemberCheckIdService();
 			break;
 		case "/add.do":
 			service = new MemberAddService();

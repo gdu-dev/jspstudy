@@ -68,11 +68,11 @@ public class MemberAddService implements IMemberService {
 			response.setStatus(500);
 			
 			// 응답 데이터 만들기
-			String msg = "신규 등록이 실패했습니다.\n입력 데이터를 확인하세요.";
+			String msg = "신규 등록이 실패했습니다. 입력 데이터를 확인하세요.";
 			
 			// 응답 (catch문의 응답이므로 ajax의 error로 전달된다.)
 			PrintWriter out = response.getWriter();
-			out.println(msg);
+			out.print(msg);  // println() 메소드를 사용하면 응답 메시지 뒤에 엔터가 자동으로 추가되므로 print() 메소드를 사용한다.
 			out.flush();
 			out.close();
 			

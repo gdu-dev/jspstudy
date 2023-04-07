@@ -56,7 +56,14 @@ public class MemberDAO {
 		ss.close();
 		return member;
 	}
-	
+
+	// 아이디 중복 체크용
+	public Member selectMemberById(String id) {
+		SqlSession ss = factory.openSession();
+		Member member = ss.selectOne(NS + "selectMemberById", id);
+		ss.close();
+		return member;
+	}
 	
 	// 삽입
 	public int insertMember(Member member) {
