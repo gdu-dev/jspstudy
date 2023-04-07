@@ -11,6 +11,23 @@
 <script src="${contextPath}/resources/js/lib/jquery-3.6.4.min.js"></script>
 <script>
 	
+	/* 함수 호출 */
+	fnGetAllMember();
+	
+	/* 함수 정의 */
+	function fnGetAllMember(){
+		$.ajax({
+			// 요청
+			type: 'get',
+			url: '${contextPath}/list.do',
+			// 응답
+			dataType: 'json',
+			success: function(resData){  // 응답 데이터는 resData로 전달된다.
+				console.log(resData);
+			}
+		})
+	}
+	
 </script>
 </head>
 <body>

@@ -43,20 +43,32 @@
 <body>
 
 	<div>
-		<h1>학생관리</h1>
+	
+		<h1>학생 관리</h1>
+		
 		<div>
 			<input type="button" value="신규학생등록" id="btn_add">
 		</div>
+		
 		<hr>
+		
 		<div>
 			<span>평균</span>
-			<input type="text" name="begin" id="begin" size="4" placeholder="begin">
+			<input type="number" name="begin" id="begin" min="0" max="100" placeholder="begin">
 			~
-			<input type="text" name="end" id="end" size="4" placeholder="end">
+			<input type="number" name="end" id="end" min="0" max="100" placeholder="end">
 			<input type="button" value="조회" id="btn_find">
 			<input type="button" value="전체조회" id="btn_list">
 		</div>
+		
 		<hr>
+		
+		<c:forEach var="s" items="${top3}" varStatus="vs">
+			<div>${vs.index + 1}위 ${s.name}님 <fmt:formatNumber value="${s.ave}" pattern="0.00" />점</div>
+		</c:forEach>
+		
+		<hr>
+		
 		<div>
 			<table border="1">
 				<caption>전체 학생 ${count}명</caption>
