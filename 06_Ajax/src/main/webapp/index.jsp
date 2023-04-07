@@ -8,104 +8,6 @@
 <%
 	pageContext.setAttribute("contextPath", request.getContextPath());
 %>
-<script src="${contextPath}/resources/js/lib/jquery-3.6.4.min.js"></script>
-<script>
-	
-	/* 함수 호출 */
-	fnInit();
-	fnGetAllMember();
-	
-	/* 함수 정의 */
-	function fnInit(){
-		$('#id').val('');
-		$('#name').val('');
-		$(':radio[name=gender]').prop('checked', false);
-		$('#address').val('');
-	}
-	
-	function fnGetAllMember(){
-		$.ajax({
-			// 요청
-			type: 'get',
-			url: '${contextPath}/list.do',
-			// 응답
-			dataType: 'json',
-			success: function(resData){  // 응답 데이터는 resData로 전달된다.
-				/*
-					resData <--- out.println(obj.toString())
-					resData = {
-						"memberCount": 2,
-						"memberList": [
-							{ },
-							{ }
-						]
-					}
-				*/
-				
-				$('#member_count').text(resData.memberCount);
-				
-				let memberList = $('#member_list');
-				memberList.empty();  // 기존의 회원 목록을 지운다.
-				
-				if(resData.memberCount === 0){
-					memberList.append('<tr><td colspan="6">회원이 없습니다.</td></tr>');
-				} else {
-					/* $.each(배열, (인덱스, 요소)=>{})       */
-					/* $.each(배열, function(인덱스, 요소){}) */
-					$.each(resData.memberList, function(i, element){  // element는 하나의 회원 객체를 의미한다. 
-						let str = '<tr>';
-						str += '<td>' + element.memberNo + '</td>';
-						str += '<td>' + element.id + '</td>';
-						str += '<td>' + element.name + '</td>';
-						str += '<td>' + (element.gender === 'M' ? '남자' : '여자') + '</td>';
-						str += '<td>' + element.address + '</td>';
-						str += '<td><input type="button" value="조회" class="btn_detail" onclick="fnGetMember(' + element.memberNo + ')"></td>';
-						memberList.append(str);
-					})
-				}
-			}
-		})
-	}
-	
-	function fnAddMember(){
-		$.ajax({
-			// 요청
-			type: 'post',
-			url: '${contextPath}/add.do',
-			data: $('#frm_member').serialize(),  // 폼의 모든 입력 요소를 파라미터로 전송한다. (입력 요소에는 name 속성이 필요하다.)
-			// 응답
-			dataType: 'json',
-			success: function(resData){  // try문의 응답이 resData에 저장된다. resData = {"insertResult": 1}
-				if(resData.insertResult === 1) {
-					alert('신규 회원이 등록되었습니다.');
-					fnInit();          // 입력란 초기화
-					fnGetAllMember();  // 새로운 회원 목록으로 갱신하기
-				} else {
-					alert('신규 회원 등록이 실패했습니다.');
-				}
-			},
-			error: function(jqXHR) {  // jqXHR 객체에는 예외코드(응답코드: 404, 500 등)와 예외메시지 등이 저장된다.
-				                      // catch문의 응답 코드는 jqXHR 객체의 status 속성에 저장된다.
-				                      // catch문의 응답 메세지는 jqXHR 객체의 responseText 속성에 저장된다.
-				alert(jqXHR.responseText + '(' + jqXHR.status + ')');
-			}
-		})
-	}
-	
-	// onclick="fnGetMember(element.memberNo)"
-	// fnGetMember() 함수를 호출할 때 회원번호(element.memberNo)를 인수로 전달하면 매개변수 memberNo가 받는다.
-	function fnGetMember(memberNo){
-		$.ajax({
-			// 요청
-			type: 'get',
-			url: '${contextPath}/detail.do',
-			data: 'memberNo=' + 10000,
-			// 응답
-			
-		})
-	}
-	
-</script>
 </head>
 <body>
 
@@ -157,6 +59,112 @@
 		</table>
 	
 	</div>
+
+	<script src="${contextPath}/resources/js/lib/jquery-3.6.4.min.js"></script>
+	<script>
+		
+		/* 함수 호출 */
+		fnInit();
+		fnGetAllMember();
+		
+		/* 함수 정의 */
+		function fnInit(){
+			$('#id').val('');
+			$('#name').val('');
+			$(':radio[name=gender]').prop('checked', false);
+			$('#address').val('');
+		}
+		
+		function fnGetAllMember(){
+			$.ajax({
+				// 요청
+				type: 'get',
+				url: '${contextPath}/list.do',
+				// 응답
+				dataType: 'json',
+				success: function(resData){  // 응답 데이터는 resData로 전달된다.
+					/*
+						resData <--- out.println(obj.toString())
+						resData = {
+							"memberCount": 2,
+							"memberList": [
+								{ },
+								{ }
+							]
+						}
+					*/
+					
+					$('#member_count').text(resData.memberCount);
+					
+					let memberList = $('#member_list');
+					memberList.empty();  // 기존의 회원 목록을 지운다.
+					
+					if(resData.memberCount === 0){
+						memberList.append('<tr><td colspan="6">회원이 없습니다.</td></tr>');
+					} else {
+						/* $.each(배열, (인덱스, 요소)=>{})       */
+						/* $.each(배열, function(인덱스, 요소){}) */
+						$.each(resData.memberList, function(i, element){  // element는 하나의 회원 객체를 의미한다. 
+							let str = '<tr>';
+							str += '<td>' + element.memberNo + '</td>';
+							str += '<td>' + element.id + '</td>';
+							str += '<td>' + element.name + '</td>';
+							str += '<td>' + (element.gender === 'M' ? '남자' : '여자') + '</td>';
+							str += '<td>' + element.address + '</td>';
+							str += '<td><input type="button" value="조회" class="btn_detail" onclick="fnGetMember(' + element.memberNo + ')"></td>';
+							memberList.append(str);
+						})
+					}
+				}
+			})
+		}
+		
+		function fnAddMember(){
+			$.ajax({
+				// 요청
+				type: 'post',
+				url: '${contextPath}/add.do',
+				data: $('#frm_member').serialize(),  // 폼의 모든 입력 요소를 파라미터로 전송한다. (입력 요소에는 name 속성이 필요하다.)
+				// 응답
+				dataType: 'json',
+				success: function(resData){  // try문의 응답이 resData에 저장된다. resData = {"insertResult": 1}
+					if(resData.insertResult === 1) {
+						alert('신규 회원이 등록되었습니다.');
+						fnInit();          // 입력란 초기화
+						fnGetAllMember();  // 새로운 회원 목록으로 갱신하기
+					} else {
+						alert('신규 회원 등록이 실패했습니다.');
+					}
+				},
+				error: function(jqXHR) {  // jqXHR 객체에는 예외코드(응답코드: 404, 500 등)와 예외메시지 등이 저장된다.
+					                      // catch문의 응답 코드는 jqXHR 객체의 status 속성에 저장된다.
+					                      // catch문의 응답 메세지는 jqXHR 객체의 responseText 속성에 저장된다.
+					alert(jqXHR.responseText + '(' + jqXHR.status + ')');
+				}
+			})
+		}
+		
+		// onclick="fnGetMember(element.memberNo)"
+		// fnGetMember() 함수를 호출할 때 회원번호(element.memberNo)를 인수로 전달하면 매개변수 memberNo가 받는다.
+		function fnGetMember(memberNo){
+			$.ajax({
+				// 요청
+				type: 'get',
+				url: '${contextPath}/detail.do',
+				data: 'memberNo=' + memberNo,
+				// 응답
+				dataType: 'json',
+				success: function(resData){  // resData = {"member": {"memberNo":회원번호, "gender": "M", ...}}
+					alert('회원 정보가 조회되었습니다.');
+					$('#id').val(resData.member.id);
+					$('#name').val(resData.member.name);
+					$(':radio[name=gender][value=' + resData.member.gender + ']').prop('checked', true);
+					$('#address').val(resData.member.address);
+				}
+			})
+		}
+		
+	</script>
 
 </body>
 </html>
