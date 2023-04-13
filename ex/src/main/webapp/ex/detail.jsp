@@ -10,18 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function fnDetail(exNo){
-		location.href = '${contextPath}/detail.do?exNo=' + exNo;
-	}
+	
 </script>
 </head>
 <body>
-	<c:forEach items="${exList}" var="ex">
-		<div style="border: 1px solid gray; cursor: pointer;" onclick="fnDetail(${ex.exNo})">
-			<div>${ex.exNo}</div>
-			<div>${ex.exContent}</div>
-			<div>${ex.exCreatedAt}</div>
-		</div>
-	</c:forEach>
+	<div>${ex.exNo}</div>
+	<div>${ex.exContent}</div>
+	<div>${ex.exCreatedAt}</div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gdu.ex.service.ExDetailService;
 import com.gdu.ex.service.ExListService;
 import com.gdu.ex.service.ExService;
 
@@ -30,6 +31,9 @@ public class ExController extends HttpServlet {
 		switch(urlMapping) {
 		case "/list.do":
 			service = new ExListService();
+			break;
+		case "/detail.do":
+			service = new ExDetailService();
 			break;
 		}
 		
