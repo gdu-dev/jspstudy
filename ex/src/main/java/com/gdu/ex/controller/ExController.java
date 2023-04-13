@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gdu.ex.common.ActionForward;
 import com.gdu.ex.service.ExDetailService;
 import com.gdu.ex.service.ExListService;
 import com.gdu.ex.service.ExService;
@@ -26,7 +27,7 @@ public class ExController extends HttpServlet {
 		
 		ExService service = null;
 		
-		String path = null;
+		ActionForward af = null;
 		
 		switch(urlMapping) {
 		case "/list.do":
@@ -37,9 +38,13 @@ public class ExController extends HttpServlet {
 			break;
 		}
 		
-		path = service.execute(request, response);
+		af = service.execute(request, response);
 		
-		request.getRequestDispatcher(path).forward(request, response);
+		if(af.isRedirect()) {
+			response.sendRedirect(af.getPath());
+		} else {
+			request.getRequestDispatcher(af.getPath()).forward(request, response);
+		}
 		
 	}
 
