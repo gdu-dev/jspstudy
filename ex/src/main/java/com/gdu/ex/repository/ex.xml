@@ -24,13 +24,11 @@
 		INSERT INTO EX
 		VALUES(EX_SEQ.NEXTVAL, #{exContent}, SYSTIMESTAMP)
 	</insert>
+	
+	<delete id="remove" parameterType="int">
+		DELETE
+		  FROM EX
+		 WHERE EX_NO = #{exNo}
+	</delete>
 
 </mapper>
-
-
-
-
-
-
-
-

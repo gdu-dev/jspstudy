@@ -10,12 +10,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	
+	function fnRemove(){
+		if(confirm('삭제?????')){
+			location.href = '${contextPath}/remove.do?exNo=${ex.exNo}';
+		}
+	}
 </script>
 </head>
 <body>
 	<div>${ex.exNo}</div>
 	<div>${ex.exContent}</div>
 	<div>${ex.exCreatedAt}</div>
+	<div><input type="button" value="삭제" onclick="fnRemove()"></div>
 </body>
 </html>

@@ -70,13 +70,14 @@ public class ExDao {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
+	public int remove(int exNo) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete(NS + "remove", exNo);
+		if(result == 1) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 }
