@@ -60,7 +60,15 @@ public class ExDao {
 		return result;
 	}
 	
-	
+	public int save(ExDto ex) {
+		SqlSession ss = factory.openSession(false);  // commit 코드를 직접 넣겠다.
+		int result = ss.insert(NS + "save", ex);
+		if(result == 1) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

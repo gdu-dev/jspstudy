@@ -13,6 +13,9 @@
 	function fnDetail(exNo){
 		location.href = '${contextPath}/detail.do?exNo=' + exNo;
 	}
+	function fnWrite(){
+		location.href = '${contextPath}/write.do';
+	}
 </script>
 </head>
 <body>
@@ -23,5 +26,6 @@
 			<div>${ex.exCreatedAt}</div>
 		</div>
 	</c:forEach>
+	<input type="button" value="작성하러가기" onclick="fnWrite()">
 </body>
 </html>

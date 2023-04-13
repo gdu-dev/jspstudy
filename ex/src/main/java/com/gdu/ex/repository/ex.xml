@@ -20,6 +20,11 @@
 		 WHERE EX_NO = #{exNo}
 	</select>
 
+	<insert id="save" parameterType="Ex">
+		INSERT INTO EX
+		VALUES(EX_SEQ.NEXTVAL, #{exContent}, SYSTIMESTAMP)
+	</insert>
+
 </mapper>
 
 
