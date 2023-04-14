@@ -154,7 +154,7 @@
 
       	
       
-      <Context docBase="ex" path="/ex" reloadable="true" source="org.eclipse.jst.jee.server:ex"/></Host>
+      </Host>
     </Engine>
   </Service>
 </Server>
