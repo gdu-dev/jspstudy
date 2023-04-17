@@ -30,5 +30,11 @@
 		  FROM EX
 		 WHERE EX_NO = #{exNo}
 	</delete>
+	
+	<update id="update" parameterType="Ex">
+		UPDATE EX
+		   SET EX_CONTENT = #{exContent}
+		 WHERE EX_NO = #{exNo}
+	</update>
 
 </mapper>

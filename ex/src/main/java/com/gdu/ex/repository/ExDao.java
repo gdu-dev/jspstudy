@@ -80,4 +80,14 @@ public class ExDao {
 		return result;
 	}
 	
+	public int update(ExDto ex) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.update(NS + "update", ex);
+		if(result == 1) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
+	
 }

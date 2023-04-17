@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gdu.ex.common.ActionForward;
 import com.gdu.ex.service.ExDetailService;
+import com.gdu.ex.service.ExEditService;
 import com.gdu.ex.service.ExListService;
+import com.gdu.ex.service.ExModifyService;
 import com.gdu.ex.service.ExRemoveService;
 import com.gdu.ex.service.ExSaveService;
 import com.gdu.ex.service.ExService;
@@ -47,6 +49,12 @@ public class ExController extends HttpServlet {
 			break;
 		case "/remove.do":
 			service = new ExRemoveService();
+			break;
+		case "/edit.do":
+			service = new ExEditService();
+			break;
+		case "/modify.do":
+			service = new ExModifyService();
 			break;
 		}
 		
