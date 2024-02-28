@@ -31,11 +31,48 @@
     })
     
   </script>
+  
+  <!-- <form> 태그 요청 -->
+  <form id="frm"
+        method="POST"
+        action="/servlet/request">
+    <div class="inp-wrap">
+      <label for="name">이름</label>
+      <input type="text" name="name" id="name">
+    </div>
+    <div class="inp-wrap">
+      <label for="email">이메일</label>
+      <input type="text" name="email" id="email">
+    </div>
+    <div class="inp-wrap">
+      <input type="radio" name="gender" id="none">
+      <label for="none">선택안함</label>
+      <input type="radio" name="gender" id="man">
+      <label for="man">남자</label>
+      <input type="radio" name="gender" id="woman">
+      <label for="woman">여자</label>
+    </div>
+    <div class="inp-wrap">
+      <input type="checkbox" name="hobbies" id="game">
+      <label for="game">게임</label>
+      <input type="checkbox" name="hobbies" id="cook">
+      <label for="cook">요리</label>
+      <input type="checkbox" name="hobbies" id="travel">
+      <label for="travel">여행</label>
+    </div>
+    <div class="inp-wrap">
+      <select name="mobile">
+        <option>SKT</option>
+        <option>KT</option>
+        <option>LGU+</option>
+      </select>
+      <input type="text" name="mobile">
+    </div>
+    <div class="btn-wrap">
+      <button type="submit">전송</button>
+      <button type="reset">다시입력</button>
+    </div>
+  </form>
 
 </body>
 </html>
-
-
-
-
-
