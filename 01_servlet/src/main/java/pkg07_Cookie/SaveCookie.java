@@ -24,17 +24,20 @@ public class SaveCookie extends HttpServlet {
     Cookie cookie1 = new Cookie("name", URLEncoder.encode(name, "UTF-8"));    // 쿠키 값은 String 타입이다. 공백 등 쿠키 값으로 사용할 수 없는 문자가 있어서 인코딩 후 저장한다.
     Cookie cookie2 = new Cookie("email", URLEncoder.encode(email,  "UTF-8"));
     
-    // 쿠키 유지 시간
+    // 쿠키 유지 시간 (생략하면 세션 쿠키가 된다.)
     cookie1.setMaxAge(60 * 60 * 24 * 15);  // 15일
-    // cookie2.setMaxAge(60);              // 생략하면 세션 쿠키가 된다.(브라우저를 닫으면 지워지는 쿠키)
+    // cookie2.setMaxAge(60);              // 세션 쿠키(브라우저를 닫으면 지워지는 쿠키)
     
-    // 쿠키 저장 경로 (생략하면 contextPath 가 경로로 사용된다.
+    // 쿠키 저장 경로 (생략하면 contextPath 가 경로로 사용된다.)
     cookie1.setPath("/servlet");             // contextPath, cookie1.setPath(request.getContextPath())
     cookie2.setPath("/servlet/saveCookie");  // URLMapping,  cookie2.setPath(request.getRequestURI())
     
-    // 쿠키 저장(응답)
+    // 쿠키 저장(응답 : 클라이언트가 쿠키를 저장한다.)
     response.addCookie(cookie1);
     response.addCookie(cookie2);
+    
+    // ReadCookie 서블릿으로 이동하기
+    response.sendRedirect(request.getContextPath() + "/readCookie");
   
   }
 
