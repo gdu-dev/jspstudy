@@ -119,4 +119,14 @@
     <servlet-name>ReadCookie</servlet-name>
     <url-pattern>/readCookie</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCookie</display-name>
+    <servlet-name>DeleteCookie</servlet-name>
+    <servlet-class>pkg07_Cookie.DeleteCookie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCookie</servlet-name>
+    <url-pattern>/deleteCookie</url-pattern>
+  </servlet-mapping>
 </web-app>
