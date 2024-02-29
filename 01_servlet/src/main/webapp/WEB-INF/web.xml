@@ -99,4 +99,14 @@
     <servlet-name>Download</servlet-name>
     <url-pattern>/download</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SaveCookie</display-name>
+    <servlet-name>SaveCookie</servlet-name>
+    <servlet-class>pkg07_Cookie.SaveCookie</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveCookie</servlet-name>
+    <url-pattern>/saveCookie</url-pattern>
+  </servlet-mapping>
 </web-app>
