@@ -3,6 +3,7 @@ package pkg06_upload;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.Collection;
 
 import jakarta.servlet.ServletException;
@@ -35,8 +36,6 @@ public class Upload extends HttpServlet {
     // 첨부된 파일 정보
     Collection<Part> parts = request.getParts();
     for(Part part : parts) {
-      // System.out.println(part.getName() + "," + part.getContentType() + "," + part.getSize() + "," + part.getSubmittedFileName());
-      // System.out.println(part.getHeader("Content-Disposition"));
       if(part.getHeader("Content-Disposition").contains("filename")) {
         if(part.getSize() > 0) {
           originalFilename = part.getSubmittedFileName();
@@ -63,6 +62,13 @@ public class Upload extends HttpServlet {
     out.println("<div>저장경로 : " + uploadPath + "</div>");
     out.println("<hr>");
     
+    File[] files = uploadDir.listFiles();
+    for(File file : files) {
+      String fileName1 = file.getName();  // 파일명_1234567890.jpg
+      String ext = fileName1.substring(fileName1.lastIndexOf("."));
+      String fileName2 = fileName1.substring(0, fileName1.lastIndexOf("_"));
+      out.println("<div><a href=\"/servlet/download?filename=" + URLEncoder.encode(fileName1, "UTF-8") + "\">" + fileName2 + ext + "</a></div>");
+    }
     
     out.flush();
     out.close();
