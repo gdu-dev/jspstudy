@@ -79,13 +79,14 @@
   <script>
   
     const getData2 = ()=>{
+    	$('#contents2').empty();
       $.ajax({
         /* 요청 */
         type: 'GET',
         url: '/servlet/getData2',
         /* 응답 */
         dataType: 'json'  // 'xml', 'json'
-      }).done((resData)=>{
+      }).done(resData=>{
         $.each(resData.items.item, (i, elem)=>{
         	let str = '<tr>';
         	str += '<td>' + elem.occrrnc_dt + '</td>';
@@ -94,8 +95,8 @@
         	str += '</tr>';
         	$('#contents2').append(str);
         })
-      }).fail((jqXHR)=>{
-        console.log(jqXHR.responseText + '(' + jqXHR.status + ')');
+      }).fail(jqXHR=>{
+    	  $('#contents2').append(`<tr><td colspan="3">${jqXHR.responseText}</td></tr>`);
       })
     }
     
