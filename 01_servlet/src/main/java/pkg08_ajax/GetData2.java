@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.json.JSONObject;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +26,7 @@ public class GetData2 extends HttpServlet {
     urlBuilder.append("?serviceKey=").append(URLEncoder.encode("bEQBRPHjt0tZrc7EsL0T8usfsZ1+wT+5jqamBef/ErC/5ZO6N7nYdRmrwR91bh5d3I1AQeY5qdbJOF6Kv0U1CQ==", "UTF-8"));
     urlBuilder.append("&searchYear=").append(URLEncoder.encode("2022", "UTF-8"));
     urlBuilder.append("&siDo=").append(URLEncoder.encode("1100", "UTF-8"));
-    urlBuilder.append("&guGun=").append(URLEncoder.encode("1116", "UTF-8"));
+    //urlBuilder.append("&guGun=").append(URLEncoder.encode("1116", "UTF-8"));
     urlBuilder.append("&type=").append(URLEncoder.encode("json", "UTF-8"));
     urlBuilder.append("&numOfRows=").append(URLEncoder.encode("10", "UTF-8"));
     urlBuilder.append("&pageNo=").append(URLEncoder.encode("1", "UTF-8"));
@@ -62,7 +64,23 @@ public class GetData2 extends HttpServlet {
       while((line = in.readLine()) != null) {
         builder.append(line);
       }
+
+      /*******************************************************/
+      // 응답 결과
+      String responseBody = builder.toString();
       
+      // 결과 코드 확인을 위한 JSONObject 객체 생성
+      JSONObject obj = new JSONObject(responseBody);
+      
+      // 결과 코드
+      String resultCode = obj.getString("resultCode");
+      String resultMsg = obj.getString("resultMsg");
+      
+      if(!resultCode.equals("00")) {
+        throw new RuntimeException(resultCode + "," + resultMsg);
+      }
+      /*******************************************************/
+       
       // 응답 데이터 타입 & 인코딩
       response.setContentType("application/json; charset=UTF-8");
       
@@ -75,11 +93,11 @@ public class GetData2 extends HttpServlet {
     } catch (Exception e) {
       // $.ajax().fail() 메소드로 전달되는 응답 만들기
       // 1) 응답 코드 만들기
-      response.setStatus(responseCode);
-      // 2) 응답 메시지 만들기
       response.setContentType("text/plain; charset=UTF-8");
+      response.setStatus(Integer.parseInt(e.getMessage().split(",")[0]));
+      // 2) 응답 메시지 만들기
       PrintWriter out = response.getWriter();
-      out.print(e.getMessage());
+      out.print(e.getMessage().split(",")[1]);
       out.flush();
       out.close();
     }
