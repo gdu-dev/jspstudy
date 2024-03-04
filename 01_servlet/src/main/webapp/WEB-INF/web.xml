@@ -179,4 +179,14 @@
     <servlet-name>DataBind2</servlet-name>
     <url-pattern>/dataBind2</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DataBind3</display-name>
+    <servlet-name>DataBind3</servlet-name>
+    <servlet-class>pkg09_bind.DataBind3</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DataBind3</servlet-name>
+    <url-pattern>/dataBind3</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -19,6 +19,9 @@ public class DataConfirm extends HttpServlet {
     // HttpSession 데이터 확인
     System.out.println(request.getSession().getAttribute("b"));
     
+    // HttpServletRequest 데이터 확인
+    System.out.println(request.getAttribute("c"));
+    
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
