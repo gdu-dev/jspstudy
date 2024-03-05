@@ -11,18 +11,23 @@
 %>
 <title><%=title%></title>
 
+<%
+  String contextPath = request.getContextPath();
+  long timestamp = System.currentTimeMillis();
+%>
+
 <!-- custom css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/header.css?dt=<%=System.currentTimeMillis()%>">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/body.css?dt=<%=System.currentTimeMillis()%>">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/footer.css?dt=<%=System.currentTimeMillis()%>">
+<link rel="stylesheet" href="<%=contextPath%>/assets/css/header.css?dt=<%=timestamp%>">
+<link rel="stylesheet" href="<%=contextPath%>/assets/css/body.css?dt=<%=timestamp%>">
+<link rel="stylesheet" href="<%=contextPath%>/assets/css/footer.css?dt=<%=timestamp%>">
 
 </head>
 <body>
 
   <div class="header-wrap">
     <div>
-      <a href="<%=request.getContextPath()%>/pkg03_include/main1.jsp">main1</a>
-      <a href="<%=request.getContextPath()%>/pkg03_include/main2.jsp">main2</a>
+      <a href="<%=contextPath%>/pkg03_include/main1.jsp">main1</a>
+      <a href="<%=contextPath%>/pkg03_include/main2.jsp">main2</a>
     </div>
   </div>
   
