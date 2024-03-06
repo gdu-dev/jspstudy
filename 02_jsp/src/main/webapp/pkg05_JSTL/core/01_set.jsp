@@ -21,7 +21,16 @@
   <c:set var="a" value="3" scope="session"></c:set>
   <c:set var="a" value="4" scope="application"></c:set>
   
-  <div>${a}</div>
+  <div>${pageScope.a}</div>
+  <div>${requestScope.a}</div>
+  <div>${sessionScope.a}</div>
+  <div>${applicationScope.a}</div>
+  
+  <%-- 자주 사용하게 될 <c:set> --%>
+  <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="page"/>
+  <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
+
+  <div>${contextPath}</div>  
 
 </body>
 </html>
