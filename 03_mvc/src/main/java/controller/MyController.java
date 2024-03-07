@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.MyInterface;
+import model.MyInterfaceImpl;
 
 public class MyController extends HttpServlet {
   
@@ -21,7 +23,29 @@ public class MyController extends HttpServlet {
     String contextPath = request.getContextPath();  /* /mvc */
     String urlMapping = requestURI.substring(requestURI.indexOf(contextPath) + contextPath.length());
     
-    System.out.println(urlMapping);
+    /* MyInterface 타입의 MyInterfaceImpl 객체 생성 */
+    MyInterface myInterface = new MyInterfaceImpl();
+    
+    /* 메소드 호출 결과(view 경로)를 저장할 변수 */
+    String path = null;
+    
+    /* 요청에 따른 메소드 호출 */
+    switch(urlMapping) {
+    case "/getDate.do":
+      path = myInterface.getDate(request);
+      System.out.println(request.getAttribute("date"));
+      break;
+    case "/getTime.do":
+      path = myInterface.getTime(request);
+      System.out.println(request.getAttribute("time"));
+      break;
+    case "/getDateTime.do":
+      path = myInterface.getDateTime(request);
+      System.out.println(request.getAttribute("datetime"));
+      break;
+    }
+    
+    System.out.println(path);
   
   }
   
