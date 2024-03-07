@@ -2,14 +2,22 @@
  * 
  */
 
+const getContextPath = ()=>{
+  const host = location.host; /* localhost:8080 */
+  const url = location.href   /* http://localhost:8080/mvc/getDate.do */
+  const begin = url.indexOf(host) + host.length;
+  const end = url.indexOf('/', begin + 1);
+  return url.substring(begin, end);
+}
+
 const getDateTime = ()=>{
   const type = document.getElementById('type');
   if(type.value === 'date'){
-    location.href = '/mvc/getDate.do';
+    location.href = getContextPath() + '/getDate.do';
   } else if(type.value === 'time'){
-    location.href = '/mvc/getTime.do';
+    location.href = getContextPath() + '/getTime.do';
   } else if(type.value === 'datetime'){
-    location.href = '/mvc/getDateTime.do';
+    location.href = getContextPath() + '/getDateTime.do';
   }
 }
 
