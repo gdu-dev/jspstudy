@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import common.ActionForward;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,27 +27,31 @@ public class MyController extends HttpServlet {
     /* MyInterface 타입의 MyInterfaceImpl 객체 생성 */
     MyInterface myInterface = new MyInterfaceImpl();
     
-    /* 메소드 호출 결과(view 경로)를 저장할 변수 */
-    String path = null;
+    /* 메소드 호출 결과(view + forward/redirect)를 저장할 ActionForward 객체 선언 */
+    ActionForward actionForward = null;
     
     /* 요청에 따른 메소드 호출 */
     switch(urlMapping) {
     case "/getDate.do":
-      path = myInterface.getDate(request);
-      System.out.println(request.getAttribute("date"));
+      actionForward = myInterface.getDate(request);
       break;
     case "/getTime.do":
-      path = myInterface.getTime(request);
-      System.out.println(request.getAttribute("time"));
+      actionForward = myInterface.getTime(request);
       break;
     case "/getDateTime.do":
-      path = myInterface.getDateTime(request);
-      System.out.println(request.getAttribute("datetime"));
+      actionForward = myInterface.getDateTime(request);
       break;
     }
     
-    System.out.println(path);
-  
+    /* 어디로 어떻게 이동할 것인지 결정 */
+    if(actionForward != null) {
+      if(actionForward.isRedirect()) {
+        response.sendRedirect(actionForward.getView());
+      } else {
+        request.getRequestDispatcher(actionForward.getView()).forward(request, response);
+      }
+    }
+    
   }
   
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
