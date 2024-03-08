@@ -103,8 +103,19 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public ActionForward removeBoard(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+    String param = request.getParameter("board_no");
+    int board_no = 0;
+    if(!param.isEmpty()) {
+      board_no = Integer.parseInt(param);
+    }
+    int deleteCount = boardDao.deleteBoard(board_no);
+    String view = null;
+    if(deleteCount == 0) {
+      view = request.getContextPath() + "/main.brd";
+    } else {
+      view = request.getContextPath() + "/board/list.brd";
+    }
+    return new ActionForward(view, true);
   }
 
 }
