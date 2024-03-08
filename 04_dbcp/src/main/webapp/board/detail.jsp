@@ -16,6 +16,18 @@
   ${board.contents}
   <div>최종수정일 : ${board.modified_at}</div>
   <div>작성일 : ${board.created_at}</div>
+  
+  <div>
+    <form id="frm-btn"
+          method="POST">
+      <input type="hidden" name="board_no" value="${board.board_no}">
+      <button type="button" id="btn-edit">편집</button>
+      <button type="button" id="btn-remove">삭제</button>
+    </form>
+  </div>
+  <script>
+  
+  </script>
 
 </body>
 </html>
