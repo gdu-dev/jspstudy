@@ -20,8 +20,22 @@ public class BoardServiceImpl implements BoardService {
   
   @Override
   public ActionForward addBoard(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+    String title = request.getParameter("title");
+    String contents = request.getParameter("contents");
+    BoardDto board = BoardDto.builder()
+                        .title(title)
+                        .contents(contents)
+                      .build();
+    int insertCount = boardDao.insertBoard(board);
+    // redirect 경로는 URLMapping 으로 작성한다.
+    String view = null;
+    if(insertCount == 1) {
+      view = request.getContextPath() + "/board/list.brd";
+    } else if(insertCount == 0) {
+      view = request.getContextPath() + "/main.brd";
+    }
+    // INSERT 이후 이동은 redirect 이다.
+    return new ActionForward(view, true);
   }
 
   @Override

@@ -12,7 +12,7 @@
 <body>
 
   <div>
-    <a>새게시글작성</a>
+    <a href="${contextPath}/board/write.brd">새게시글작성</a>
   </div>
 
   <hr>
