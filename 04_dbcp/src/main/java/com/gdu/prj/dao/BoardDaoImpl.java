@@ -3,6 +3,7 @@ package com.gdu.prj.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -82,26 +83,90 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int deleteBoard(int board_no) {
-    // TODO Auto-generated method stub
-    return 0;
+    int deleteCount = 0;
+    try {
+      con = dataSource.getConnection();
+      String sql = "DELETE FROM BOARD_T WHERE BOARD_NO = ?";
+      ps = con.prepareStatement(sql);
+      ps.setInt(1, board_no);
+      deleteCount = ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      close();
+    }
+    return deleteCount;
   }
 
   @Override
   public List<BoardDto> selectBoardList(Map<String, Object> map) {
-    // TODO Auto-generated method stub
-    return null;
+    List<BoardDto> boardList = new ArrayList<>();
+    try {
+      con = dataSource.getConnection();
+      String sql = "SELECT BOARD_NO, TITLE, CONTENTS, MODIFIED_AT, CREATED_AT FROM BOARD_T ORDER BY BOARD_NO DESC";
+      ps = con.prepareStatement(sql);
+      rs = ps.executeQuery();
+      while(rs.next()) {
+        BoardDto board = BoardDto.builder()
+                            .board_no(rs.getInt(1))
+                            .title(rs.getString(2))
+                            .contents(rs.getString(3))
+                            .modified_at(rs.getDate(4))
+                            .created_at(rs.getDate(5))
+                          .build();
+        boardList.add(board);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      close();
+    }
+    return boardList;
   }
 
   @Override
   public int getBoardCount() {
-    // TODO Auto-generated method stub
-    return 0;
+    int boardCount = 0;
+    try {
+      con = dataSource.getConnection();
+      String sql = "SELECT COUNT(*) FROM BOARD_T";
+      ps = con.prepareStatement(sql);
+      rs = ps.executeQuery();
+      if(rs.next()) {
+        boardCount = rs.getInt(1);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      close();
+    }
+    return boardCount;
   }
 
   @Override
   public BoardDto selectBoardByNo(int board_no) {
-    // TODO Auto-generated method stub
-    return null;
+    BoardDto board = null;
+    try {
+      con = dataSource.getConnection();
+      String sql = "SELECT BOARD_NO, TITLE, CONTENTS, MODIFIED_AT, CREATED_AT FROM BOARD_T WHERE BOARD_NO = ?";
+      ps = con.prepareStatement(sql);
+      ps.setInt(1, board_no);
+      rs = ps.executeQuery();
+      if(rs.next()) {
+        board = BoardDto.builder()
+                    .board_no(rs.getInt(1))
+                    .title(rs.getString(2))
+                    .contents(rs.getString(3))
+                    .modified_at(rs.getDate(4))
+                    .created_at(rs.getDate(5))
+                  .build();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      close();
+    }
+    return board;
   }
 
   @Override

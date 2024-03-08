@@ -17,7 +17,14 @@
 
   <hr>
   
+  <div>
+    <span>게시글 개수</span>
+    <span>${boardCount}</span> 
+  </div>
   
+  <div>
+    ${empty boardList}
+  </div>
   
 </body>
 </html>

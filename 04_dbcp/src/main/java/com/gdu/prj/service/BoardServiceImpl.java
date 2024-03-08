@@ -1,8 +1,11 @@
 package com.gdu.prj.service;
 
+import java.util.List;
+
 import com.gdu.prj.common.ActionForward;
 import com.gdu.prj.dao.BoardDao;
 import com.gdu.prj.dao.BoardDaoImpl;
+import com.gdu.prj.dto.BoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -13,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class BoardServiceImpl implements BoardService {
 
   // service 는 dao 를 호출한다.
-  private BoardDao boardDao = new BoardDaoImpl();
+  private BoardDao boardDao = BoardDaoImpl.getInstance();
   
   @Override
   public ActionForward addBoard(HttpServletRequest request) {
@@ -23,8 +26,11 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public ActionForward getBoardList(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+    int boardCount = boardDao.getBoardCount();
+    List<BoardDto> boardList = boardDao.selectBoardList(null);
+    request.setAttribute("boardCount", boardCount);
+    request.setAttribute("boardList", boardList);
+    return new ActionForward("/board/list.jsp", false);
   }
 
   @Override
