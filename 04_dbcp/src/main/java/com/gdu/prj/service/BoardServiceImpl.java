@@ -11,7 +11,7 @@ import com.gdu.prj.dto.BoardDto;
 import jakarta.servlet.http.HttpServletRequest;
 
 /*
- * view - controller - service - dao - db
+ * view - filter - controller - service - dao - db
  */
 
 public class BoardServiceImpl implements BoardService {

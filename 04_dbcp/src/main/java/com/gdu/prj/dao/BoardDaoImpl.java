@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import com.gdu.prj.dto.BoardDto;
 
 /*
- * view - controller - service - dao - db
+ * view - filter - controller - service - dao - db
  */
 
 public class BoardDaoImpl implements BoardDao {
