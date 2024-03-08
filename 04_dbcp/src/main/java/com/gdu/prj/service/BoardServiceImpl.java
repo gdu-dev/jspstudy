@@ -65,8 +65,20 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public ActionForward editBoard(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+    String param = request.getParameter("board_no");
+    int board_no = 0;
+    if(!param.isEmpty()) {
+      board_no = Integer.parseInt(param);
+    }
+    BoardDto board = boardDao.selectBoardByNo(board_no);
+    String view = null;
+    if(board != null) {
+      view = "/board/edit.jsp";
+      request.setAttribute("board", board);
+    } else {
+      view = "/index.jsp";
+    }
+    return new ActionForward(view, false);
   }
 
   @Override

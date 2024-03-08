@@ -17,10 +17,10 @@
         action="">
     <div>
       <label for="title">제목</label>
-      <input type="text" id="title" name="title">
+      <input type="text" id="title" name="title" value="${board.title}">
     </div>
     <div>
-      <textarea rows="5" cols="50" name="contents"></textarea>
+      <textarea rows="5" cols="50" name="contents">${board.contents}</textarea>
     </div>
     <div>
       <button type="submit">수정완료</button>
