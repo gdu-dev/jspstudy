@@ -99,6 +99,22 @@ public class BoardDaoImpl implements BoardDao {
   }
 
   @Override
+  public int deleteBoards(String param) {
+    int deleteCount = 0;
+    try {
+      con = dataSource.getConnection();
+      String sql = "DELETE FROM BOARD_T WHERE BOARD_NO IN(" + param + ")";
+      ps = con.prepareStatement(sql);
+      deleteCount = ps.executeUpdate();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      close();
+    }
+    return deleteCount;
+  }
+  
+  @Override
   public List<BoardDto> selectBoardList(Map<String, Object> map) {
     List<BoardDto> boardList = new ArrayList<>();
     try {

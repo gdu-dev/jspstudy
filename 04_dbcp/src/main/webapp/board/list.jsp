@@ -63,6 +63,7 @@
         	})
         	// array           === [3, 2, 1]
         	// array.join(',') === '3,2,1'
+        	location.href = '${contextPath}/board/removes.brd?param=' + array.join(',');
         })
       </script>
     </c:if>
