@@ -11,7 +11,11 @@
 </head>
 <body>
 
-
+  <div>제목 : ${board.title}</div>
+  <div>내용</div>
+  ${board.contents}
+  <div>최종수정일 : ${board.modified_at}</div>
+  <div>작성일 : ${board.created_at}</div>
 
 </body>
 </html>

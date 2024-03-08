@@ -1,6 +1,7 @@
 package com.gdu.prj.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.gdu.prj.common.ActionForward;
 import com.gdu.prj.dao.BoardDao;
@@ -49,8 +50,17 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public ActionForward getBoardByNo(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+    Optional<String> opt = Optional.ofNullable(request.getParameter("board_no"));
+    int board_no = Integer.parseInt(opt.orElse("0"));
+    BoardDto board = boardDao.selectBoardByNo(board_no);
+    String view = null;
+    if(board != null) {
+      view = "/board/detail.jsp";
+      request.setAttribute("board", board);
+    } else {
+      view = "/index.jsp";
+    }
+    return new ActionForward(view, false);
   }
 
   @Override

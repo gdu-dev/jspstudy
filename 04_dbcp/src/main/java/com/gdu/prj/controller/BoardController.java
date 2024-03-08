@@ -49,6 +49,9 @@ public class BoardController extends HttpServlet {
     case "/main.brd":
       actionForward = new ActionForward("/index.jsp", false);
       break;
+    case "/board/detail.brd":
+      actionForward = boardService.getBoardByNo(request);
+      break;
     }
     
     // 어디로 어떻게 이동하는지 결정
