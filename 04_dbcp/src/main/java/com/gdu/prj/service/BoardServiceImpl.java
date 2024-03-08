@@ -83,8 +83,22 @@ public class BoardServiceImpl implements BoardService {
 
   @Override
   public ActionForward modifyBoard(HttpServletRequest request) {
-    // TODO Auto-generated method stub
-    return null;
+    int board_no = Integer.parseInt(request.getParameter("board_no"));
+    String title = request.getParameter("title");
+    String contents = request.getParameter("contents");
+    BoardDto board = BoardDto.builder()
+                          .title(title)
+                          .contents(contents)
+                          .board_no(board_no)
+                        .build();
+    int updateCount = boardDao.updateBoard(board);
+    String view = null;
+    if(updateCount == 0) {
+      view = request.getContextPath() + "/main.brd";
+    } else {
+      view = request.getContextPath() + "/board/detail.brd?board_no=" + board_no;
+    }
+    return new ActionForward(view, true);
   }
 
   @Override

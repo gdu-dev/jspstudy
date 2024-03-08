@@ -55,6 +55,9 @@ public class BoardController extends HttpServlet {
     case "/board/edit.brd":
       actionForward = boardService.editBoard(request);
       break;
+    case "/board/modify.brd":
+      actionForward = boardService.modifyBoard(request);
+      break;
     }
     
     // 어디로 어떻게 이동하는지 결정
