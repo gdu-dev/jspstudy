@@ -80,6 +80,8 @@ public class BoardServiceImpl implements BoardService {
     request.setAttribute("total", total);
     request.setAttribute("boardList", boardList);
     request.setAttribute("paging", paging);
+    request.setAttribute("display", display);
+    request.setAttribute("sort", sort);
     
     return new ActionForward("/board/list.jsp", false);
     
