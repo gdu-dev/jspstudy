@@ -45,14 +45,24 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int updateBoard(BoardDto board) {
-    // TODO Auto-generated method stub
-    return 0;
+    SqlSession sqlSession = factory.openSession(false);  // autoCommit을 하지 않는다.
+    int updateCount = sqlSession.update("com.gdu.prj.dao.board_t.updateBoard", board);
+    if(updateCount == 1) {
+      sqlSession.commit();
+    }
+    sqlSession.close();
+    return updateCount;
   }
 
   @Override
   public int deleteBoard(int board_no) {
-    // TODO Auto-generated method stub
-    return 0;
+    SqlSession sqlSession = factory.openSession(false);  // autoCommit을 하지 않는다.
+    int deleteCount = sqlSession.delete("com.gdu.prj.dao.board_t.deleteBoard", board_no);
+    if(deleteCount == 1) {
+      sqlSession.commit();
+    }
+    sqlSession.close();
+    return deleteCount;
   }
 
   @Override
@@ -65,14 +75,18 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public int getBoardCount() {
-    // TODO Auto-generated method stub
-    return 0;
+    SqlSession sqlSession = factory.openSession();
+    int total = sqlSession.selectOne("com.gdu.prj.dao.board_t.getBoardCount");
+    sqlSession.close();
+    return total;
   }
 
   @Override
   public BoardDto selectBoardByNo(int board_no) {
-    // TODO Auto-generated method stub
-    return null;
+    SqlSession sqlSession = factory.openSession();
+    BoardDto board = sqlSession.selectOne("com.gdu.prj.dao.board_t.selectBoardByNo", board_no);
+    sqlSession.close();
+    return board;
   }
 
 }
