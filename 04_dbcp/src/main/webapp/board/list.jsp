@@ -30,7 +30,7 @@
   
   <div>
     <span>게시글 개수</span>
-    <span>${boardCount}</span> 
+    <span>${total}</span> 
   </div>
   
   <div>

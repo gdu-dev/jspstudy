@@ -1,5 +1,10 @@
 package com.gdu.prj.utils;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Data
 public class MyPageUtils {
 
   private int total;     // 전체 게시글 개수                      (DB에서 구한다.)
@@ -18,18 +23,5 @@ public class MyPageUtils {
     end = begin + display - 1;
     
   }
-  
-  total   1002
-  diaplay 20
-  
-  page=1  1   20
-  page=2  21  40
-  page=3  41  60
-  ..
-  page=50 981  1000
-  page=51 1001 1020
-  
-  계산
-  totalPage 50
-  
+   
 }
