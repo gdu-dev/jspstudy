@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
@@ -33,8 +34,13 @@ public class BoardDaoImpl implements BoardDao {
   
   @Override
   public int insertBoard(BoardDto board) {
-    // TODO Auto-generated method stub
-    return 0;
+    SqlSession sqlSession = factory.openSession(false);  // autoCommit을 하지 않는다.
+    int insertCount = sqlSession.insert("com.gdu.prj.dao.board_t.insertBoard", board);
+    if(insertCount == 1) {
+      sqlSession.commit();
+    }
+    sqlSession.close();
+    return insertCount;
   }
 
   @Override
@@ -51,8 +57,10 @@ public class BoardDaoImpl implements BoardDao {
 
   @Override
   public List<BoardDto> selectBoardList(Map<String, Object> params) {
-    // TODO Auto-generated method stub
-    return null;
+    SqlSession sqlSession = factory.openSession();
+    List<BoardDto> boardList = sqlSession.selectList("com.gdu.prj.dao.board_t.selectBoardList", params);
+    sqlSession.close();
+    return boardList;
   }
 
   @Override

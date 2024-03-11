@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class BoardDto {
+  private int rn;
   private int board_no;
   private String title;
   private String contents;
