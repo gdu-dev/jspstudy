@@ -18,6 +18,25 @@
   .row > span:nth-of-type(3) {
     width: 100px;
   }
+  .paging {
+    display: flex;
+  }
+  .paging > div {
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+  }
+  .paging a {
+    color: black;
+    text-decoration: none;
+  }
+  .dont-click {
+    color: silver;
+  }
+  .current-page {
+    color: limegreen!important;
+  }
 </style>
 </head>
 <body>
@@ -30,8 +49,16 @@
   
   <div>
     <span>게시글 개수</span>
-    <span>${total}</span> 
+    <span>${total}</span>
   </div>
+  
+  <div>
+    <a href="${contextPath}/board/list.brd?page=1&sort=DESC">내림차순</a>
+    <span>|</span>
+    <a href="${contextPath}/board/list.brd?page=1&sort=ASC">오름차순</a>
+  </div>
+  
+  <div class="paging">${paging}</div>
   
   <div>
     <c:if test="${empty boardList}">

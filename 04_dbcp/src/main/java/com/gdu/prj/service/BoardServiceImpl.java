@@ -58,19 +58,31 @@ public class BoardServiceImpl implements BoardService {
     Optional<String> optPage = Optional.ofNullable(request.getParameter("page"));
     int page = Integer.parseInt(optPage.orElse("1"));
     
+    // 정렬 방식
+    Optional<String> optSort = Optional.ofNullable(request.getParameter("sort"));
+    String sort = optSort.orElse("DESC");
+    
     // 페이징 처리에 필요한 변수 값 계산하기
     myPageUtils.setPaging(total, display, page);
     
     // 목록을 가져올 때 필요한 변수를 Map 에 저장함
     Map<String, Object> params = Map.of("begin", myPageUtils.getBegin(),
-                                        "end", myPageUtils.getEnd());
+                                        "end", myPageUtils.getEnd(),
+                                        "sort", sort);
     
     // 목록 가져오기
     List<BoardDto> boardList = boardDao.selectBoardList(params);
     
+    // 페이지 링크 가져오기
+    String paging = myPageUtils.getPaging(request.getRequestURI());
+    
+    // JSP 에 전달할 데이터들
     request.setAttribute("total", total);
     request.setAttribute("boardList", boardList);
+    request.setAttribute("paging", paging);
+    
     return new ActionForward("/board/list.jsp", false);
+    
   }
 
   @Override

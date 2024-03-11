@@ -120,7 +120,7 @@ public class BoardDaoImpl implements BoardDao {
     try {
       con = dataSource.getConnection();
       String sql = "SELECT BOARD_NO, TITLE, CONTENTS, MODIFIED_AT, CREATED_AT"
-                 + "  FROM (SELECT ROW_NUMBER() OVER(ORDER BY BOARD_NO DESC) AS RN, BOARD_NO, TITLE, CONTENTS, MODIFIED_AT, CREATED_AT"
+                 + "  FROM (SELECT ROW_NUMBER() OVER(ORDER BY BOARD_NO " + params.get("sort") + ") AS RN, BOARD_NO, TITLE, CONTENTS, MODIFIED_AT, CREATED_AT"
                  + "          FROM BOARD_T)"
                  + " WHERE RN BETWEEN ? AND ?";
       ps = con.prepareStatement(sql);
