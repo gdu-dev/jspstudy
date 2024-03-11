@@ -12,10 +12,10 @@
   .row > span {  
     display: inline-block;
   }
-  .row > span:nth-of-type(2) {
+  .row > span:nth-of-type(3) {
     width: 150px;
   }
-  .row > span:nth-of-type(3) {
+  .row > span:nth-of-type(4) {
     width: 100px;
   }
   .paging {
@@ -58,6 +58,19 @@
     <a href="${contextPath}/board/list.brd?page=1&sort=ASC">오름차순</a>
   </div>
   
+  <div>
+    <select id="display">
+      <option>20</option>
+      <option>50</option>
+      <option>100</option>
+    </select>
+  </div>
+  <script>
+    document.getElementById('display').addEventListener('change', (evt)=>{
+    	location.href = '${contextPath}/board/list.brd?display=' + evt.target.value;
+    })
+  </script>
+  
   <div class="paging">${paging}</div>
   
   <div>
@@ -68,6 +81,7 @@
       <c:forEach items="${boardList}" var="board">      
         <div class="row">
           <span><input type="checkbox" class="chk-each" value="${board.board_no}"></span>
+          <span>${board.board_no}</span>
           <span><a href="${contextPath}/board/detail.brd?board_no=${board.board_no}">${board.title}</a></span>
           <span>${board.created_at}</span>
         </div>

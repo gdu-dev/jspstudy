@@ -33,7 +33,7 @@ public class MyPageUtils {
     
   }
 
-  public String getPaging(String requestURI) {
+  public String getPaging(String requestURI, String sort, int display) {
     
     StringBuilder builder = new StringBuilder();
     
@@ -41,15 +41,15 @@ public class MyPageUtils {
     if(beginPage == 1) {
       builder.append("<div class=\"dont-click\">&lt;</div>");
     } else {
-      builder.append("<div><a href=\"" + requestURI + "?page=" + (beginPage - 1) + "\">&lt;</a></div>");
+      builder.append("<div><a href=\"" + requestURI + "?page=" + (beginPage - 1) + "&sort=" + sort + "&display=" + display + "\">&lt;</a></div>");
     }
     
     // 1 2 3 4 5 6 7 8 9 10
     for(int p = beginPage; p <= endPage; p++) {
       if(p == page) {
-        builder.append("<div><a class=\"current-page\" href=\"" + requestURI + "?page=" + p + "\">" + p + "</a></div>");
+        builder.append("<div><a class=\"current-page\" href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "\">" + p + "</a></div>");
       } else {
-        builder.append("<div><a href=\"" + requestURI + "?page=" + p + "\">" + p + "</a></div>");
+        builder.append("<div><a href=\"" + requestURI + "?page=" + p + "&sort=" + sort + "&display=" + display + "\">" + p + "</a></div>");
       }
     }
     
@@ -57,7 +57,7 @@ public class MyPageUtils {
     if(endPage == totalPage) {
       builder.append("<div class=\"dont-click\">&gt;</div>");
     } else {
-      builder.append("<div><a href=\"" + requestURI + "?page=" + (endPage + 1) + "\">&gt;</a></div>");
+      builder.append("<div><a href=\"" + requestURI + "?page=" + (endPage + 1) + "&sort=" + sort + "&display=" + display + "\">&gt;</a></div>");
     }
     
     return builder.toString();

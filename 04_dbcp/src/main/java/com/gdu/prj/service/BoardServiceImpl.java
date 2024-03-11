@@ -74,7 +74,7 @@ public class BoardServiceImpl implements BoardService {
     List<BoardDto> boardList = boardDao.selectBoardList(params);
     
     // 페이지 링크 가져오기
-    String paging = myPageUtils.getPaging(request.getRequestURI());
+    String paging = myPageUtils.getPaging(request.getRequestURI(), sort, display);
     
     // JSP 에 전달할 데이터들
     request.setAttribute("total", total);
